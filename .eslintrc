@@ -1,0 +1,38 @@
+{
+  "extends": [
+    "airbnb-base",
+    "plugin:security-node/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended"
+  ],
+  "env": {
+    "node": true,
+    "browser": false
+  },
+  "plugins": ["import", "security-node", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 9
+  },
+  "rules": {
+    "no-underscore-dangle": "off",
+    "camelcase": "off",
+    "comma-dangle": ["error", "only-multiline"],
+    "semi": ["error", "never"],
+    "arrow-parens": ["error", "as-needed"],
+    "object-curly-newline": ["error", { "multiline": true, "consistent": true }],
+    "consistent-return": "off",
+    "no-console": [
+      "error",
+      {
+        "allow": ["warn", "info", "error"]
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "prettier/prettier": "error",
+    "prefer-rest-params": "off",
+    "no-plusplus": "off",
+    "jest/expect-expect": "off"
+  }
+}

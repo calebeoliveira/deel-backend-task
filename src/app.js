@@ -1,21 +1,22 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const {sequelize} = require('./model')
-const {getProfile} = require('./middleware/getProfile')
-const app = express();
-app.use(bodyParser.json());
+const express = require('express')
+const { sequelize } = require('./model')
+const { getProfile, adminAccess } = require('./middleware')
+const { ContractsController, JobsController, BalancesController, AdminController } = require('./controller')
+
+const app = express()
+
+app.use(express.json())
 app.set('sequelize', sequelize)
 app.set('models', sequelize.models)
 
-/**
- * FIX ME!
- * @returns contract by id
- */
-app.get('/contracts/:id',getProfile ,async (req, res) =>{
-    const {Contract} = req.app.get('models')
-    const {id} = req.params
-    const contract = await Contract.findOne({where: {id}})
-    if(!contract) return res.status(404).end()
-    res.json(contract)
-})
-module.exports = app;
+app.get('/contracts/:id', getProfile, ContractsController.show)
+app.get('/contracts', getProfile, ContractsController.index)
+
+app.get('/jobs/unpaid', getProfile, JobsController.indexUnpaid)
+app.post('/jobs/:job_id/pay', getProfile, JobsController.pay)
+
+app.post('/balances/deposit/:userId', getProfile, BalancesController.deposit)
+
+app.get('/admin/best-profession', adminAccess, AdminController.indexBestProfession)
+app.get('/admin/best-clients', adminAccess, AdminController.indexBestClients)
+module.exports = app
