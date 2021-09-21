@@ -1,6 +1,6 @@
 # DEEL BACKEND TASK
 
-## Import notes:
+## Important notes:
 
 - The application can be tested by running `npm run test` (after installing the dependencies).
 - There is a GitHub Action, simulating a CI cycle.
